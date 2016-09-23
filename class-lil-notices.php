@@ -2,7 +2,7 @@
 /**
  * Lil Notices Plugin Class
  *
- * @since 0.1
+ * @since 0.1.2
  */
 
 //avoid direct calls to this file, because now WP core and framework has been used
@@ -22,14 +22,14 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 		 * @return  void
 		 */
 		public static function init() {
-			add_action( 'admin_init', array( get_called_class(), 'admin_init' ), 1 );
+			if ( ( is_multisite() ) && ( is_network_admin () ) ) {
+				return;
+			}
 			add_action( 'admin_bar_menu', array( get_called_class(), 'admin_bar_menu' ), 999 );
 			add_action( 'admin_enqueue_scripts', array( get_called_class(), 'admin_enqueue_scripts' ), 999 );
 		} // end public function init
 
-		public static function admin_init() {
-		}
-		
+
 		public static function admin_enqueue_scripts() {
 			wp_enqueue_script( 'ln-scripts', plugin_dir_url( __FILE__ ) . 'assets/dist/main.js', array(), LIL_NOTICES__VERSION, true );
 			wp_enqueue_style( 'ln-styles', plugin_dir_url( __FILE__ ) . 'assets/dist/style.css', array(), LIL_NOTICES__VERSION );
@@ -71,7 +71,6 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 			if ( empty( $wp_filter['admin_notices'] ) ) {
 				$html .= apply_filters( 'ln_no_notices', __( 'Nothing to see here!', 'ln_domain' ) );
 			} else {
-				$html .= 'Count: ' . count( $wp_filter['admin_notices'] ) . '<hr>';
 				$html .= '<ul class="ln-notice-list">';
 
 				ob_start();
