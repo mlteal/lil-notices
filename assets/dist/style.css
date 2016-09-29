@@ -19,9 +19,6 @@
 	}
 }
 
-#wp-toolbar>ul>#wp-admin-bar-ln_menu.menupop.ab-sub-wrapper {
-}
-
 #wpadminbar .ln-notice-list {
 	padding: 10px;
 }
@@ -35,6 +32,10 @@
 	margin: 5px 0;
 }
 
+#wpadminbar .ln-notice-item .update-nag {
+	display: block;
+}
+
 #wpadminbar #wp-admin-bar-ln_menu-default .ln-notice-item > div > p {
 	line-height: 12px !important;
 }
@@ -46,19 +47,19 @@
 	height: 15px;
 }
 
-#wpadminbar .ln-updated, #wpadminbar .ln-notice.notice-success {
+#wpadminbar .ln-updated, #wpadminbar .ln-notice-item .notice-success {
 	border-left: 4px solid #46b450;
 }
 
-#wpadminbar .ln-notice.notice-warning {
+#wpadminbar .ln-notice-item .notice-warning {
 	border-left: 4px solid #ffb900;
 }
 
-#wpadminbar .ln-notice.notice-error {
+#wpadminbar .ln-notice-item .notice-error, #wpadminbar .ln-notice-item .ln-error {
 	border-left: 4px solid #dc3232;
 }
 
-#wpadminbar .ln-notice.notice-info {
+#wpadminbar .ln-notice-item .notice-info {
 	border-left: 4px solid #00a0d2;
 }
 

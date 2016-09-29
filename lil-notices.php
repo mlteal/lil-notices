@@ -4,7 +4,7 @@
  * Plugin URI: http://mlteal.com/
  * Description: Giant admin notices are annoying. Make them lil'.
  * Author: mlteal
- * Version: 0.1.2
+ * Version: 0.1.3
  * License: GPLv2
  * Text Domain: ln_domain
  *
@@ -15,7 +15,7 @@
  * @category plugin
  */
 
-define( 'LIL_NOTICES__VERSION', '0.1.2' );
+define( 'LIL_NOTICES__VERSION', '0.1.3' );
 
 require_once( 'class-lil-notices.php' );
 
