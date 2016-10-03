@@ -16,6 +16,7 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	var count = $("#wp-admin-bar-ln_all_notices ul li").length;
-	$( "#wp-admin-bar-ln_menu > a" ).prepend( "<span class='ln-notifications'>" + count + "" );
-
+	if ( count > 0 ) {
+		$( "#wp-admin-bar-ln_menu > a" ).prepend( "<span class='ln-notifications'>" + count + "" );
+	}
 } );
