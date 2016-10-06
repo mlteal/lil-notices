@@ -81,15 +81,15 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 				// preg match & replace the classes that WP is using to move admin notices in under the page's H tag
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(updated)([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2ln-updated$4$5', $notices );
+					'$1$2ln-updated $4$5', $notices );
 
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(notice[^\-\_])([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2ln-notice$4$5', $notices );
+					'$1$2ln-notice $4$5', $notices );
 
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(error)([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2ln-error$4$5', $notices );
+					'$1$2ln-error $4$5', $notices );
 
 				$html .= $notices;
 

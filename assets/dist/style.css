@@ -65,7 +65,7 @@
 
 #wpadminbar #wp-admin-bar-ln_menu .ln-notifications {
 	color: #ffffff;
-	background: #d46f15;
+	background-color: #d46f15;
 	padding: 2px 8px;
 	display: inline-block;
 	font-size: 9px;
@@ -74,3 +74,28 @@
 	margin-right: 4px;
 	border-radius: 10px;
 }
+
+#wpadminbar #wp-admin-bar-ln_menu .ln-notifications {
+	color: #ffffff;
+	background-color: #d46f15;
+	padding: 2px 8px;
+	display: inline-block;
+	font-size: 9px;
+	line-height: 17px;
+	font-weight: 600;
+	margin-right: 4px;
+	border-radius: 10px;
+}
+
+#wpadminbar #wp-admin-bar-ln_menu.zero-count .ln-notifications {
+	background-color: #808080;
+}
+
+#wpadminbar #wp-admin-bar-ln_menu.zero-count .ab-sub-wrapper {
+	display: none;
+}
+
+/*TODO: Change cursor to pointer when count is zero*/
+/*#wpadminbar #wp-admin-bar-ln_menu.zero-count a.ab-item {*/
+	/*cursor: pointer;*/
+/*}*/

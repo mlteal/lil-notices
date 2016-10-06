@@ -16,7 +16,12 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	var count = $("#wp-admin-bar-ln_all_notices ul li").length;
-	if ( count > 0 ) {
+	if ( count >= 0 ) {
 		$( "#wp-admin-bar-ln_menu > a" ).prepend( "<span class='ln-notifications'>" + count + "" );
 	}
+
+	if ( count == 0 ) {
+		$( "li#wp-admin-bar-ln_menu" ).addClass( "zero-count" );
+	}
+
 } );
