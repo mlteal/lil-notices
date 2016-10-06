@@ -4,11 +4,11 @@
  * Plugin URI: http://mlteal.com/
  * Description: Giant admin notices are annoying. Make them lil'.
  * Author: mlteal
- * Version: 0.1.3
+ * Version: 1.0
  * License: GPLv2
  * Text Domain: ln_domain
  *
- * GitHub Plugin URI: https://github.com/
+ * GitHub Plugin URI: https://github.com/mlteal/lil-notices
  * GitHub Branch: master
  *
  * @package ln_domain
