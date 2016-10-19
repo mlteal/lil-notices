@@ -170,7 +170,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 						$the_item = ob_get_clean();
 
 						if ( false != $the_item ) {
-							echo '<li class="ln-notice-item" data-notice-id="' . sanitize_key( $the_['function'] ) . '">';
+							echo '<li class="ln-notice-item">';
 							echo $the_item;
 							echo '</li>';
 						}
