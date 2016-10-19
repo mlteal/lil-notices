@@ -2,7 +2,7 @@
 /**
  * Lil Notices Plugin Class
  *
- * @since 0.1
+ * @since 0.1.2
  */
 
 //avoid direct calls to this file, because now WP core and framework has been used
@@ -22,14 +22,14 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 		 * @return  void
 		 */
 		public static function init() {
-			add_action( 'admin_init', array( get_called_class(), 'admin_init' ), 1 );
+			if ( ( is_multisite() ) && ( is_network_admin () ) ) {
+				return;
+			}
 			add_action( 'admin_bar_menu', array( get_called_class(), 'admin_bar_menu' ), 999 );
 			add_action( 'admin_enqueue_scripts', array( get_called_class(), 'admin_enqueue_scripts' ), 999 );
 		} // end public function init
 
-		public static function admin_init() {
-		}
-		
+
 		public static function admin_enqueue_scripts() {
 			wp_enqueue_script( 'ln-scripts', plugin_dir_url( __FILE__ ) . 'assets/dist/main.js', array(), LIL_NOTICES__VERSION, true );
 			wp_enqueue_style( 'ln-styles', plugin_dir_url( __FILE__ ) . 'assets/dist/style.css', array(), LIL_NOTICES__VERSION );
@@ -65,23 +65,31 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 		 */
 		public static function notices_content() {
 			global $wp_filter;
-			// count the number of items attached to 'admin_notices'
+			// count the number of items attached to 'admin_notices' and 'all_admin_notices'
 			// might actually just pull each item from this bit as it will make more sense
 			$html = '';
-			if ( empty( $wp_filter['admin_notices'] ) ) {
+			if ( empty( $wp_filter['admin_notices'] ) && empty( $wp_filter['all_admin_notices']) ) {
 				$html .= apply_filters( 'ln_no_notices', __( 'Nothing to see here!', 'ln_domain' ) );
 			} else {
-				$html .= 'Count: ' . count( $wp_filter['admin_notices'] ) . '<hr>';
 				$html .= '<ul class="ln-notice-list">';
 
 				ob_start();
 				static::do_action( 'admin_notices' );
+				static::do_action( 'all_admin_notices' );
 				$notices = ob_get_clean();
 
 				// preg match & replace the classes that WP is using to move admin notices in under the page's H tag
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(updated)([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2 ln-updated $4$5', $notices );
+					'$1$2ln-updated $4$5', $notices );
+
+				$notices = preg_replace(
+					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(notice[^\-\_])([A-Za-z0-9\-\_\ ]*)([\"\'])/',
+					'$1$2ln-notice $4$5', $notices );
+
+				$notices = preg_replace(
+					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(error)([A-Za-z0-9\-\_\ ]*)([\"\'])/',
+					'$1$2ln-error $4$5', $notices );
 
 				$html .= $notices;
 
@@ -90,6 +98,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 
 			// since we're grabbing them above, remove the core do_action via remove_all_actions
 			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
 
 			return $html;
 		}
@@ -161,7 +170,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 						$the_item = ob_get_clean();
 
 						if ( false != $the_item ) {
-							echo '<li class="ln-notice" data-notice-id="' . sanitize_key( $the_['function'] ) . '">';
+							echo '<li class="ln-notice-item" data-notice-id="' . sanitize_key( $the_['function'] ) . '">';
 							echo $the_item;
 							echo '</li>';
 						}

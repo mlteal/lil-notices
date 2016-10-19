@@ -1,15 +1,118 @@
-#wp-toolbar>ul>#wp-admin-bar-ln_menu .ab-empty-item {
+#wp-toolbar > ul > #wp-admin-bar-ln_menu .ab-empty-item {
 	display: none;
 }
-#wp-toolbar>ul>#wp-admin-bar-ln_menu {
-	display: block;
+
+#wp-toolbar > ul > #wp-admin-bar-ln_menu {
+	display: inline-block;
 	position: static;
 }
 
-#wp-toolbar>ul>#wp-admin-bar-ln_menu #wp-admin-bar-ln_all_notices {
+#wp-toolbar > ul > #wp-admin-bar-ln_menu #wp-admin-bar-ln_all_notices {
 	background: #ffffff;
 	color: #0a0a0e;
+	width: 800px;
 }
 
-#wp-toolbar>ul>#wp-admin-bar-ln_menu.menupop.ab-sub-wrapper {
+@media screen and ( max-width: 800px ) {
+	#wp-toolbar > ul > #wp-admin-bar-ln_menu #wp-admin-bar-ln_all_notices {
+		width: 100%;
+	}
 }
+
+#wpadminbar .ln-notice-list {
+	padding: 10px;
+}
+
+#wpadminbar .ln-notice-item > * {
+	background-color: #f7f7f7;
+	padding: 10px 20px;
+}
+
+#wpadminbar .ln-notice-item {
+	margin: 5px 0;
+}
+
+#wpadminbar .ln-notice-item .update-nag {
+	display: block;
+}
+
+.ln-notice-item > span {
+	display: block;
+}
+
+#wpadminbar #wp-admin-bar-ln_menu-default .ln-notice-item > span > p {
+	line-height: 24px !important;
+}
+
+#wpadminbar .quicklinks .menupop ul li .ln-notice-item a {
+	display: inline;
+	padding: 0;
+	color: #0096dd;
+	line-height: 24px !important;
+}
+
+#wpadminbar .ln-updated, #wpadminbar .ln-notice-item .notice-success {
+	border-left: 4px solid #46b450;
+}
+
+#wpadminbar .ln-notice-item .notice-warning {
+	border-left: 4px solid #ffb900;
+}
+
+#wpadminbar .ln-notice-item .notice-error, #wpadminbar .ln-notice-item .ln-error {
+	border-left: 4px solid #dc3232;
+}
+
+#wpadminbar .ln-notice-item .notice-info {
+	border-left: 4px solid #00a0d2;
+}
+
+@media screen and (max-width: 420px) {
+	#wpadminbar #wp-admin-bar-ln_menu > a {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 420px) {
+	#wpadminbar #wp-admin-bar-ln_menu > a {
+		display: inline-block;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar .quicklinks #wp-admin-bar-ln_menu a {
+		padding: 0 7px 0 6px;
+	}
+}
+
+#wpadminbar #wp-admin-bar-ln_menu .ln-notifications {
+	color: #ffffff;
+	background-color: #d46f15;
+	padding: 2px 8px;
+	display: inline-block;
+	font-size: 9px;
+	line-height: 17px;
+	font-weight: 600;
+	margin-right: 0;
+	margin-top: 0;
+	border-radius: 10px;
+}
+
+@media screen and (max-width: 420px) {
+	#wpadminbar #wp-admin-bar-ln_menu .ln-notifications {
+		margin-top: 12px;
+	}
+}
+
+#wpadminbar #wp-admin-bar-ln_menu.zero-count .ln-notifications {
+	background-color: #808080;
+}
+
+#wpadminbar #wp-admin-bar-ln_menu.zero-count .ab-sub-wrapper {
+	display: none;
+}
+
+/*TODO: Change cursor to pointer when count is zero*/
+/*#wpadminbar #wp-admin-bar-ln_menu.zero-count a.ab-item {*/
+	/*cursor: pointer;*/
+/*}*/
