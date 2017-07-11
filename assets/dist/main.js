@@ -1,17 +1,17 @@
 jQuery( document ).ready( function( $ ) {
 
-	var count = $("#wp-admin-bar-ln_all_notices ul li").length;
+	var count = $("#wp-admin-bar-ln_all_notices .ln-notice-list > div").length;
 	if ( count >= 0 ) {
-		$( "#wp-admin-bar-ln_menu" ).prepend( "<span class='ln-notifications'>" + count + "</span>" );
+		$( "#wp-admin-bar-ln_menu > a.ab-item" ).prepend( "<span class='ln-notifications'>" + count + "</span> " );
 	}
 
 	if ( count == 0 ) {
 		$( "li#wp-admin-bar-ln_menu" ).addClass( "zero-count" );
 	}
 
-	$(".ln-notice-item div").replaceWith(function() {
+	$(".ln-notice-list > div").replaceWith(function() {
 		var msgclass = $( this ).attr('class');
-		return "<span class='" + msgclass + "' >" + this.innerHTML + "</span>";
+		return "<div class='ln-notice-item'><span class='" + msgclass + "' >" + this.innerHTML + "</span></div>";
 	});
 
 	// we only need to add the click/remove the hover when we're not on "mobile"

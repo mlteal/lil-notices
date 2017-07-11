@@ -35,6 +35,9 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 			wp_enqueue_style( 'ln-styles', plugin_dir_url( __FILE__ ) . 'assets/dist/style.css', array(), LIL_NOTICES__VERSION );
 		}
 
+		/**
+		 * Add the admin bar menu item that all notices will be injected into
+		 */
 		public static function admin_bar_menu() {
 
 			global $wp_admin_bar;
@@ -71,11 +74,11 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 			if ( empty( $wp_filter['admin_notices'] ) && empty( $wp_filter['all_admin_notices']) ) {
 				$html .= apply_filters( 'ln_no_notices', __( 'Nothing to see here!', 'ln_domain' ) );
 			} else {
-				$html .= '<ul class="ln-notice-list">';
+				$html .= '<div class="ln-notice-list">';
 
 				ob_start();
-				static::do_action( 'admin_notices' );
-				static::do_action( 'all_admin_notices' );
+				do_action( 'admin_notices' );
+				do_action( 'all_admin_notices' );
 				$notices = ob_get_clean();
 
 				// preg match & replace the classes that WP is using to move admin notices in under the page's H tag
@@ -93,7 +96,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 
 				$html .= $notices;
 
-				$html .= '</ul>';
+				$html .= '</div>';
 			}
 
 			// since we're grabbing them above, remove the core do_action via remove_all_actions
@@ -101,86 +104,6 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 			remove_all_actions( 'all_admin_notices' );
 
 			return $html;
-		}
-
-		/**
-		 * Custom do_action function based on WP core's implementation
-		 *
-		 * @param        $tag
-		 * @param string $arg
-		 *
-		 * @since 0.1
-		 */
-		static function do_action( $tag, $arg = '' ) {
-			global $wp_filter, $wp_actions, $merged_filters, $wp_current_filter;
-
-			if ( ! isset( $wp_actions[ $tag ] ) ) {
-				$wp_actions[ $tag ] = 1;
-			} else {
-				++ $wp_actions[ $tag ];
-			}
-
-			// Do 'all' actions first
-			if ( isset( $wp_filter['all'] ) ) {
-				$wp_current_filter[] = $tag;
-				$all_args            = func_get_args();
-				_wp_call_all_hook( $all_args );
-			}
-
-			if ( ! isset( $wp_filter[ $tag ] ) ) {
-				if ( isset( $wp_filter['all'] ) ) {
-					array_pop( $wp_current_filter );
-				}
-
-				return;
-			}
-
-			if ( ! isset( $wp_filter['all'] ) ) {
-				$wp_current_filter[] = $tag;
-			}
-
-			$args = array();
-			if ( is_array( $arg ) && 1 == count( $arg ) && isset( $arg[0] ) && is_object( $arg[0] ) ) // array(&$this)
-			{
-				$args[] =& $arg[0];
-			} else {
-				$args[] = $arg;
-			}
-			for ( $a = 2, $num = func_num_args(); $a < $num; $a ++ ) {
-				$args[] = func_get_arg( $a );
-			}
-
-			// Sort
-			if ( ! isset( $merged_filters[ $tag ] ) ) {
-				ksort( $wp_filter[ $tag ] );
-				$merged_filters[ $tag ] = true;
-			}
-
-			reset( $wp_filter[ $tag ] );
-
-			do {
-				foreach ( (array) current( $wp_filter[ $tag ] ) as $the_ ) {
-					if ( ! is_null( $the_['function'] ) ) {
-						/**
-						 * Use ob_start/ob_get_clean so we have something
-						 * "returned" that we can then check for false/empty values.
-						 */
-						ob_start();
-						call_user_func_array( $the_['function'], array_slice( $args, 0, (int) $the_['accepted_args'] ) );
-						$the_item = ob_get_clean();
-
-						if ( false != $the_item ) {
-							echo '<li class="ln-notice-item">';
-							echo $the_item;
-							echo '</li>';
-						}
-
-					}
-				}
-
-			} while ( next( $wp_filter[ $tag ] ) !== false );
-
-			array_pop( $wp_current_filter );
 		}
 
 		/**

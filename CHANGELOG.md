@@ -1,3 +1,6 @@
+#### 1.1.0
+* Compatibility for WP version 4.7+
+
 #### 1.0.1
 * Remove unused data id
 

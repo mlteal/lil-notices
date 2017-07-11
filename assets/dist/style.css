@@ -112,7 +112,6 @@
 	display: none;
 }
 
-/*TODO: Change cursor to pointer when count is zero*/
-/*#wpadminbar #wp-admin-bar-ln_menu.zero-count a.ab-item {*/
-	/*cursor: pointer;*/
-/*}*/
+#wpadminbar #wp-admin-bar-ln_menu.zero-count a.ab-item {
+	cursor: pointer;
+}
