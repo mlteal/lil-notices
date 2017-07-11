@@ -74,7 +74,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 			if ( empty( $wp_filter['admin_notices'] ) && empty( $wp_filter['all_admin_notices']) ) {
 				$html .= apply_filters( 'ln_no_notices', __( 'Nothing to see here!', 'ln_domain' ) );
 			} else {
-				$html .= '<div class="ln-notice-list">';
+				$html .= '<ul class="ln-notice-list">';
 
 				ob_start();
 				do_action( 'admin_notices' );
@@ -96,7 +96,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 
 				$html .= $notices;
 
-				$html .= '</div>';
+				$html .= '</ul>';
 			}
 
 			// since we're grabbing them above, remove the core do_action via remove_all_actions

@@ -7,6 +7,7 @@
  * Version: 1.1.0
  * License: GPLv2
  * Text Domain: ln_domain
+ * Contributors: mlteal, andreaself
  *
  * GitHub Plugin URI: https://github.com/mlteal/lil-notices
  * GitHub Branch: master

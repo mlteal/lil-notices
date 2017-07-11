@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$(".ln-notice-list > div").replaceWith(function() {
 		var msgclass = $( this ).attr('class');
-		return "<div class='ln-notice-item'><span class='" + msgclass + "' >" + this.innerHTML + "</span></div>";
+		return "<li class='ln-notice-item'><span class='" + msgclass + "' >" + this.innerHTML + "</span></li>";
 	});
 
 	// we only need to add the click/remove the hover when we're not on "mobile"
