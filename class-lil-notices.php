@@ -6,7 +6,7 @@
  * @package Lil_Notices
  */
 
-//avoid direct calls to this file, because now WP core and framework has been used
+// Avoid direct calls to this file, because now WP core and framework has been used.
 if ( ! function_exists( 'add_filter' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -14,6 +14,9 @@ if ( ! function_exists( 'add_filter' ) ) {
 }
 
 if ( ! class_exists( 'Lil_Notices' ) ) {
+	/**
+	 * Class Lil_Notices
+	 */
 	class Lil_Notices {
 
 		/**
@@ -30,17 +33,22 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 			add_action( 'admin_enqueue_scripts', array( get_called_class(), 'admin_enqueue_scripts' ), 999 );
 		} // end public function init
 
-
+		/**
+		 * Enqueue admin-side scripts for the plugin.
+		 *
+		 * @return void
+		 */
 		public static function admin_enqueue_scripts() {
 			wp_enqueue_script( 'ln-scripts', plugin_dir_url( __FILE__ ) . 'assets/dist/main.js', array(), LIL_NOTICES__VERSION, true );
 			wp_enqueue_style( 'ln-styles', plugin_dir_url( __FILE__ ) . 'assets/dist/style.css', array(), LIL_NOTICES__VERSION );
 		}
 
 		/**
-		 * Add the admin bar menu item that all notices will be injected into
+		 * Add the admin bar menu item that all notices will be injected into.
+		 *
+		 * @return void
 		 */
 		public static function admin_bar_menu() {
-
 			global $wp_admin_bar;
 
 			$menu_id = 'ln_menu';
