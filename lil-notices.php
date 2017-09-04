@@ -24,10 +24,10 @@ require_once( 'class-lil-notices.php' );
  * Build and initialize the plugin
  */
 if ( class_exists( 'Lil_Notices' ) ) {
-	// Installation and un-installation hooks
+	// Installation and un-installation hooks.
 	register_activation_hook( __FILE__, array( 'Lil_Notices', 'activate' ) );
 	register_deactivation_hook( __FILE__, array( 'Lil_Notices', 'deactivate' ) );
 
-	// initialize
+	// Initialize the plugin.
 	add_action( 'plugins_loaded', array( 'Lil_Notices', 'init' ) );
 }

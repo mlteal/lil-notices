@@ -2,7 +2,8 @@
 /**
  * Lil Notices Plugin Class
  *
- * @since 0.1.2
+ * @since   0.1.2
+ * @package Lil_Notices
  */
 
 //avoid direct calls to this file, because now WP core and framework has been used
@@ -22,7 +23,7 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 		 * @return  void
 		 */
 		public static function init() {
-			if ( ( is_multisite() ) && ( is_network_admin () ) ) {
+			if ( ( is_multisite() ) && ( is_network_admin() ) ) {
 				return;
 			}
 			add_action( 'admin_bar_menu', array( get_called_class(), 'admin_bar_menu' ), 999 );
@@ -44,10 +45,10 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 
 			$menu_id = 'ln_menu';
 			$wp_admin_bar->add_node( array(
-				'href' => '#',
-				'id' => $menu_id,
+				'href'   => '#',
+				'id'     => $menu_id,
 				'parent' => 'top-secondary',
-				'title' => __( 'Notices' ),
+				'title'  => __( 'Notices' ),
 			) );
 			$wp_admin_bar->add_node( array(
 				'id'     => 'ln_all_notices',
@@ -68,10 +69,9 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 		 */
 		public static function notices_content() {
 			global $wp_filter;
-			// count the number of items attached to 'admin_notices' and 'all_admin_notices'
-			// might actually just pull each item from this bit as it will make more sense
+
 			$html = '';
-			if ( empty( $wp_filter['admin_notices'] ) && empty( $wp_filter['all_admin_notices']) ) {
+			if ( empty( $wp_filter['admin_notices'] ) && empty( $wp_filter['all_admin_notices'] ) ) {
 				$html .= apply_filters( 'ln_no_notices', __( 'Nothing to see here!', 'ln_domain' ) );
 			} else {
 				$html .= '<ul class="ln-notice-list">';
@@ -81,25 +81,28 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 				do_action( 'all_admin_notices' );
 				$notices = ob_get_clean();
 
-				// preg match & replace the classes that WP is using to move admin notices in under the page's H tag
+				// Preg match & replace the classes that WP is using to move admin notices in under the page's H tag.
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(updated)([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2ln-updated $4$5', $notices );
+					'$1$2ln-updated $4$5', $notices
+				);
 
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(notice[^\-\_])([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2ln-notice $4$5', $notices );
+					'$1$2ln-notice $4$5', $notices
+				);
 
 				$notices = preg_replace(
 					'/(class=[\'\"])([A-Za-z0-9\-\_\ ]*)(error)([A-Za-z0-9\-\_\ ]*)([\"\'])/',
-					'$1$2ln-error $4$5', $notices );
+					'$1$2ln-error $4$5', $notices
+				);
 
 				$html .= $notices;
 
 				$html .= '</ul>';
 			}
 
-			// since we're grabbing them above, remove the core do_action via remove_all_actions
+			// Since we're grabbing them above, remove the core do_action via remove_all_actions.
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 
@@ -125,4 +128,4 @@ if ( ! class_exists( 'Lil_Notices' ) ) {
 		} // END public static function deactivate
 
 	} // END class Lil_Notices
-} // END if ( ! class_exists( 'Lil_Notices' ) )
+} // END if ! class_exists Lil_Notices
